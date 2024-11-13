@@ -30,8 +30,8 @@ impl Guest for Component {
 
         // Call the async function in a blocking manner, using a closure to pass in Reactor
         let y = block_on(|reactor: Reactor| async move {
-            get_avg_btc(&reactor).await
-        }).unwrap();
+            get_avg_btc(&reactor, x).await
+        }).unwrap();        
 
         // Print the result
         println!("{} -> {}", x, y);
@@ -44,15 +44,16 @@ impl Guest for Component {
 }
 
 /// Record the latest BTCUSD price and return the JSON serialized result to write to the chain.
-async fn get_avg_btc(reactor: &Reactor) -> Result<f32, String> {
+async fn get_avg_btc(reactor: &Reactor, x: u64) -> Result<f32, String> {
     let api_key = std::env::var("API_KEY").or(Err("missing env var `API_KEY`".to_string()))?;
-    let price = coin_gecko::get_btc_usd_price(reactor, &api_key)
+    let price = coin_gecko::get_btc_usd_price(reactor, &api_key, x)
         .await
         .map_err(|err| err.to_string())?
         .ok_or("Invalid response from CoinGecko API")?;
 
     Ok(price)
 }
+
 
 /// The returned result.
 #[derive(Serialize, Debug)]

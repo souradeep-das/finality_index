@@ -10,7 +10,13 @@ pub struct InfuraResponse {
     pub result: String, // Hexadecimal data as a string
 }
 
-pub async fn get_btc_usd_price(reactor: &Reactor, infura_project_id: &str) -> Result<Option<f32>, String> {
+pub async fn get_btc_usd_price(reactor: &Reactor, infura_project_id: &str, x: u64) -> Result<Option<f32>, String> {
+    // Convert `x` to a hexadecimal string, left-padded to 64 characters to fit EVM data format
+    let x_hex = format!("{:064x}", x);
+
+    // Construct the `data` field by appending `x_hex` to the function selector
+    let data_field = format!("0x8e7cb6e1{}", x_hex);
+
     // Construct the JSON-RPC payload for the eth_call
     let request_payload = json!({
         "jsonrpc": "2.0",
@@ -18,7 +24,7 @@ pub async fn get_btc_usd_price(reactor: &Reactor, infura_project_id: &str) -> Re
         "params": [
             {
                 "to": "0x8Ff75b7E4217500C3497A5bb84C63075143c374c", // Replace with the actual contract address
-                "data": "0x8e7cb6e1000000000000000000000000000000000000000000000000000000000000000bbb" // Replace with actual data
+                "data": data_field // Dynamic data field with `x`
             },
             "latest" // Use "latest" to refer to the latest block
         ],
