@@ -1,4 +1,4 @@
-# On-chain reliability index for non-finalized blocks in Optimistic Rollups
+# ReliaBlocks: On-chain reliability index for non-finalized blocks in Optimistic Rollups
 
 An on-chain reliability index for non-finalized blocks in Optimistic Rollups to help non-validators estimate the likelihood of a non-finalized block being finalized. Such an index would provide valuable information to users without having to trust a specific entity or a validator for the information. A dynamic score, instead of a binary final/non-final answer - also helps put a number/weight to the reliability of what multiple agents are thinking about the finality of a specific block. An on-chain reliability index for non-finalized blocks in Optimistic Rollups would greatly enhance user experience by reducing uncertainty and improving risk assessment for transactions.
 
