@@ -2,6 +2,8 @@
 
 An on-chain reliability index for non-finalized blocks in Optimistic Rollups to help non-validators estimate the likelihood of a non-finalized block being finalized. Such an index would provide valuable information to users without having to trust a specific entity or a validator for the information. A dynamic score, instead of a binary final/non-final answer - also helps put a number/weight to the reliability of what multiple agents are thinking about the finality of a specific block. An on-chain reliability index for non-finalized blocks in Optimistic Rollups would greatly enhance user experience by reducing uncertainty and improving risk assessment for transactions.
 
+<img width="1449" alt="Screenshot 2024-11-15 at 6 09 20 PM 2" src="https://github.com/user-attachments/assets/929765e5-4d80-4b71-b60f-685f62a91b41">
+
 ## Components 
 
  - Layer AVS WASMI component ([layer-avs/](https://github.com/souradeep-das/finality_index/tree/main/layer-avs))
