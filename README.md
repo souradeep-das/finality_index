@@ -54,3 +54,10 @@ npm i
 npm run dev
 ```
 
+## Running Layer's WASI component
+1. After deploying Verifier, Operator contracts on Layer, to test the wasi interface, run:
+```
+ avs-toolkit-cli wasmatic run \                                              (base) 
+         --wasm-source ./target/wasm32-wasip1/release/finality_index.wasm  \
+         --envs "API_KEY=<your infura API key>" --input '{"x": <optimism-block-number>}'
+```
