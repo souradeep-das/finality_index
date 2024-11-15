@@ -4,10 +4,10 @@ An on-chain reliability index for non-finalized blocks in Optimistic Rollups to 
 
 ## Components 
 
- - Layer AVS WASMI component (layer-avs/)
+ - Layer AVS WASMI component ([layer-avs/](https://github.com/souradeep-das/finality_index/tree/main/layer-avs))
  - Eigen Layer AVS component (root)
- - Eigen Layer Solidity smart contracts that work with the AVS component (contracts/)
- - UI dashboard illustrating the reliability score and a derived interest rate for further utilization. (frontend/)
+ - Eigen Layer Solidity smart contracts that work with the AVS component ([contracts/](https://github.com/souradeep-das/finality_index/tree/main/contracts))
+ - UI dashboard illustrating the reliability score and a derived interest rate for further utilization. ([frontend/](https://github.com/souradeep-das/finality_index/tree/main/frontend))
 
 
 ## Test Locally
