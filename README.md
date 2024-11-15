@@ -1,8 +1,9 @@
+<img width="1156" alt="Screenshot 2024-11-15 at 7 34 29 PM" src="https://github.com/user-attachments/assets/00dd78c8-643b-424e-99c4-cfd4b523b2d9">
+
+
 # ReliaBlocks: On-chain reliability index for non-finalized blocks in Optimistic Rollups
 
 An on-chain reliability index for non-finalized blocks in Optimistic Rollups to help non-validators estimate the likelihood of a non-finalized block being finalized. Such an index would provide valuable information to users without having to trust a specific entity or a validator for the information. A dynamic score, instead of a binary final/non-final answer - also helps put a number/weight to the reliability of what multiple agents are thinking about the finality of a specific block. An on-chain reliability index for non-finalized blocks in Optimistic Rollups would greatly enhance user experience by reducing uncertainty and improving risk assessment for transactions.
-
-<img width="1449" alt="Screenshot 2024-11-15 at 6 09 20 PM 2" src="https://github.com/user-attachments/assets/929765e5-4d80-4b71-b60f-685f62a91b41">
 
 ## Components 
 
@@ -10,6 +11,9 @@ An on-chain reliability index for non-finalized blocks in Optimistic Rollups to 
  - Eigen Layer AVS component (root)
  - Eigen Layer Solidity smart contracts that work with the AVS component ([contracts/](https://github.com/souradeep-das/finality_index/tree/main/contracts))
  - UI dashboard illustrating the reliability score and a derived interest rate for further utilization. ([frontend/](https://github.com/souradeep-das/finality_index/tree/main/frontend))
+
+
+<img width="1449" alt="Screenshot 2024-11-15 at 6 09 20 PM 2" src="https://github.com/user-attachments/assets/929765e5-4d80-4b71-b60f-685f62a91b41">
 
 
 ## Test Locally
