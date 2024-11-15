@@ -23,7 +23,7 @@ const coreDeploymentData = JSON.parse(fs.readFileSync(path.resolve(__dirname, `.
 
 const delegationManagerAddress = coreDeploymentData.addresses.delegation; // todo: reminder to fix the naming of this contract in the deployment file, change to delegationManager
 const avsDirectoryAddress = coreDeploymentData.addresses.avsDirectory;
-const helloWorldServiceManagerAddress = avsDeploymentData.addresses.helloWorldServiceManager;
+const reliabilityIndexServiceManagerAddress = avsDeploymentData.addresses.reliabilityIndexServiceManager;
 const ecdsaStakeRegistryAddress = avsDeploymentData.addresses.stakeRegistry;
 
 
@@ -31,12 +31,12 @@ const ecdsaStakeRegistryAddress = avsDeploymentData.addresses.stakeRegistry;
 // Load ABIs
 const delegationManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/IDelegationManager.json'), 'utf8'));
 const ecdsaRegistryABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/ECDSAStakeRegistry.json'), 'utf8'));
-const helloWorldServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/HelloWorldServiceManager.json'), 'utf8'));
+const reliabilityIndexServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/ReliabilityIndexServiceManager.json'), 'utf8'));
 const avsDirectoryABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/IAVSDirectory.json'), 'utf8'));
 
 // Initialize contract objects from ABIs
 const delegationManager = new ethers.Contract(delegationManagerAddress, delegationManagerABI, wallet);
-const helloWorldServiceManager = new ethers.Contract(helloWorldServiceManagerAddress, helloWorldServiceManagerABI, wallet);
+const reliabilityIndexServiceManager = new ethers.Contract(reliabilityIndexServiceManagerAddress, reliabilityIndexServiceManagerABI, wallet);
 const ecdsaRegistryContract = new ethers.Contract(ecdsaStakeRegistryAddress, ecdsaRegistryABI, wallet);
 const avsDirectory = new ethers.Contract(avsDirectoryAddress, avsDirectoryABI, wallet);
 
@@ -97,7 +97,7 @@ const signAndRespondToTask = async (taskIndex: number, taskCreatedBlock: number,
 
     console.log(signedTask)
 
-    const tx = await helloWorldServiceManager.respondToTask(
+    const tx = await reliabilityIndexServiceManager.respondToTask(
         { blockNum: taskName, taskCreatedBlock: taskCreatedBlock },
         { referenceTaskIndex: taskIndex, financial_weight: financialWeight },
         signedTask
@@ -106,8 +106,8 @@ const signAndRespondToTask = async (taskIndex: number, taskCreatedBlock: number,
     console.log(`Responded to task.`);
 
     console.log('Reading values from contract')
-    console.log('Address', await helloWorldServiceManager.getAddress())
-    console.log(await helloWorldServiceManager.financialWeightMap(taskName))
+    console.log('Address', await reliabilityIndexServiceManager.getAddress())
+    console.log(await reliabilityIndexServiceManager.financialWeightMap(taskName))
 };
 
 const registerOperator = async () => {
@@ -138,7 +138,7 @@ const registerOperator = async () => {
     // Calculate the digest hash, which is a unique value representing the operator, avs, unique value (salt) and expiration date.
     const operatorDigestHash = await avsDirectory.calculateOperatorAVSRegistrationDigestHash(
         wallet.address, 
-        await helloWorldServiceManager.getAddress(), 
+        await reliabilityIndexServiceManager.getAddress(), 
         salt, 
         expiry
     );
@@ -167,9 +167,9 @@ const registerOperator = async () => {
 
 const monitorNewTasks = async () => {
     //console.log(`Creating new task "EigenWorld"`);
-    //await helloWorldServiceManager.createNewTask("EigenWorld");
+    //await reliabilityIndexServiceManager.createNewTask("EigenWorld");
 
-    helloWorldServiceManager.on("NewTaskCreated", async (taskIndex: number, task: any) => {
+    reliabilityIndexServiceManager.on("NewTaskCreated", async (taskIndex: number, task: any) => {
         console.log(`New task detected: ${task.blockNum}`);
         await signAndRespondToTask(taskIndex, task.taskCreatedBlock, task.blockNum);
     });

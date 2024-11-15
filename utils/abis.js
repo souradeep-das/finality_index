@@ -9,7 +9,7 @@ const contractsToExtract = [
   'IAVSDirectory',
   'IDelegationManager',
   'ECDSAStakeRegistry',
-  'HelloWorldServiceManager'
+  'ReliabilityIndexServiceManager'
 ];
 
 if (!fs.existsSync(abiDir)) {

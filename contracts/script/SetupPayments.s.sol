@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
-import {HelloWorldDeploymentLib} from "./utils/HelloWorldDeploymentLib.sol";
+import {ReliabilityIndexDeploymentLib} from "./utils/ReliabilityIndexDeploymentLib.sol";
 import {CoreDeploymentLib} from "./utils/CoreDeploymentLib.sol";
 import {SetupPaymentsLib} from "./utils/SetupPaymentsLib.sol";
 import {IRewardsCoordinator} from "@eigenlayer/contracts/interfaces/IRewardsCoordinator.sol";
@@ -22,7 +22,7 @@ contract SetupPayments is Script {
 
     address private deployer;
     CoreDeploymentLib.DeploymentData coreDeployment;
-    HelloWorldDeploymentLib.DeploymentData helloWorldDeployment;
+    ReliabilityIndexDeploymentLib.DeploymentData reliabilityIndexDeployment;
     string internal constant filePath = "test/mockData/scratch/payments.json";
 
     uint256 constant NUM_TOKEN_EARNINGS = 1;
@@ -33,7 +33,7 @@ contract SetupPayments is Script {
         vm.label(deployer, "Deployer");
 
         coreDeployment = CoreDeploymentLib.readDeploymentJson("deployments/core/", block.chainid);
-        helloWorldDeployment = HelloWorldDeploymentLib.readDeploymentJson("deployments/hello-world/", block.chainid);
+        reliabilityIndexDeployment = ReliabilityIndexDeploymentLib.readDeploymentJson("deployments/hello-world/", block.chainid);
 
         // TODO: Get the filePath from config
     }
@@ -60,7 +60,7 @@ contract SetupPayments is Script {
     function createAVSRewardsSubmissions(uint256 numPayments, uint256 amountPerPayment, uint32 duration, uint32 startTimestamp) public {
         SetupPaymentsLib.createAVSRewardsSubmissions(
             IRewardsCoordinator(coreDeployment.rewardsCoordinator),
-            helloWorldDeployment.strategy,
+            reliabilityIndexDeployment.strategy,
             numPayments,
             amountPerPayment,
             duration,
@@ -76,7 +76,7 @@ contract SetupPayments is Script {
             recipient,
             earnerLeaf,
             NUM_TOKEN_EARNINGS,
-            helloWorldDeployment.strategy
+            reliabilityIndexDeployment.strategy
         );
     }
 
@@ -85,7 +85,7 @@ contract SetupPayments is Script {
             IRewardsCoordinator(coreDeployment.rewardsCoordinator), 
             NUM_TOKEN_EARNINGS, 
             amountPerPayment, 
-            helloWorldDeployment.strategy
+            reliabilityIndexDeployment.strategy
         );
         IRewardsCoordinator.EarnerTreeMerkleLeaf[] memory earnerLeaves = SetupPaymentsLib.createEarnerLeaves(earners, tokenLeaves);
 
@@ -93,7 +93,7 @@ contract SetupPayments is Script {
             IRewardsCoordinator(coreDeployment.rewardsCoordinator),
             tokenLeaves,
             earnerLeaves,
-            helloWorldDeployment.strategy,
+            reliabilityIndexDeployment.strategy,
             endTimestamp,
             numPayments, 
             NUM_TOKEN_EARNINGS,

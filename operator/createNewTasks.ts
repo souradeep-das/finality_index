@@ -11,10 +11,10 @@ const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 let chainId = 31337;
 
 const avsDeploymentData = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../contracts/deployments/hello-world/${chainId}.json`), 'utf8'));
-const helloWorldServiceManagerAddress = avsDeploymentData.addresses.helloWorldServiceManager;
-const helloWorldServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/HelloWorldServiceManager.json'), 'utf8'));
+const reliabilityIndexServiceManagerAddress = avsDeploymentData.addresses.reliabilityIndexServiceManager;
+const reliabilityIndexServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/ReliabilityIndexServiceManager.json'), 'utf8'));
 // Initialize contract objects from ABIs
-const helloWorldServiceManager = new ethers.Contract(helloWorldServiceManagerAddress, helloWorldServiceManagerABI, wallet);
+const reliabilityIndexServiceManager = new ethers.Contract(reliabilityIndexServiceManagerAddress, reliabilityIndexServiceManagerABI, wallet);
 
 
 // Function to generate random names
@@ -28,7 +28,7 @@ function generateRandomNumber(): number {
 async function createNewTask(blockNum: number) {
   try {
     // Send a transaction to the createNewTask function
-    const tx = await helloWorldServiceManager.createNewTask(blockNum);
+    const tx = await reliabilityIndexServiceManager.createNewTask(blockNum);
     
     // Wait for the transaction to be mined
     const receipt = await tx.wait();
